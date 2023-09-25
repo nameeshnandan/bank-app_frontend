@@ -1,0 +1,244 @@
+
+<body>
+     
+
+    <!-- navbar  -->
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+            <img class="ms-3" width="80px" src="https://pngimg.com/uploads/bank/bank_PNG24.png" alt="">
+
+
+            <h3 class="heading ms-3" >Deutsche Bank</h3>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse pe-5 " id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto mb-2 me-5 ">
+              
+                
+              <li class="nav-item dropdown ">
+                <a class="nav-link text-light dropdown-toggle mt-3 " style="font-family: 'Montserrat', sans-serif;font-weight: 700;font-size: 20px;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Services
+                </a>
+                <ul class="dropdown-menu " style="width: 200px;">
+                  <li><a data-bs-toggle="offcanvas" href="#offcanvasExample"  class="dropdown-item fw-bolder" (click)="getBalance()"><i class="fa-solid  fa-money-check icon"></i>Balane Enquiry</a></li>
+                  <li><hr class="dropdown-divider"></li>
+
+                  <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item fw-bolder" ><i class="fa-solid  fa-arrows-rotate icon"></i>Fund Transfer</a></li>
+                  <li><hr class="dropdown-divider"></li>
+
+                  <li><a routerLink="/transaction" class="dropdown-item fw-bolder"><i class="fa-solid  fa-book icon"></i>Transaction History</a></li>
+                  <li><hr class="dropdown-divider"></li>
+
+                  <li><a (click)="deleteAccount()" class="dropdown-item fw-bolder" ><i class="fa-solid  fa-person-circle-xmark icon"></i>Remove Account</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                    
+                  <li><a (click)="logout()" class="dropdown-item text-danger fw-bolder " ><i class="fa-solid  fa-right-from-bracket icon"></i> LogOut</a></li>
+                    
+                   
+                  
+
+                        </ul>
+                    </li>
+                    </ul>
+            </div>
+        </div>
+    </nav>
+            <hr>
+
+
+
+            <!-- offcanvas  -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Balance Enquiry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <div class="balance">
+                  <img width="50%" src="https://pluspng.com/img-png/bank-balance-png-mobile-check-deposit-500.png" alt="">
+                </div>
+                <div class="balance-name mt-5 ">
+                  <h3 class="text-center mb-4">Hai {{user}}</h3>
+                  <h4 >Your current balance is <span class="text-success fw-bolder balance-amt">Rs. {{balance}}</span></h4>
+                </div>
+                
+              </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="modal-title fs-5 text-center" id="staticBackdropLabel">Fund Transfer</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- image  -->
+                    <img class="mb-3" width="100%" src="https://media.giphy.com/media/ESt8At0PXpmj6/giphy.gif" alt="">
+                    <!-- form of modal  -->
+                    <form [formGroup]="fundTransferForm">
+                      <!-- credit account number  -->
+                      <div class="form-floating mb-3">
+                        <input name="acno" formControlName="acno" type="text" class="form-control"  placeholder="Account Number">
+                        <label for="floatingInput">Account Number</label>
+                        <div class="text-danger ms-3" *ngIf="this.fundTransferForm.get('acno')?.errors && this.fundTransferForm.get('acno')?.touched">Invalid Account Number</div>
+                      </div>
+                      <!-- User Password -->
+                      <div class="form-floating mb-3">
+                        <input name="password" formControlName="password" type="password" class="form-control"  placeholder="Password">
+                        <label for="floatingInput">Password</label>
+                        <div class="text-danger ms-3" *ngIf="this.fundTransferForm.get('password')?.errors && this.fundTransferForm.get('password')?.touched">Invalid Password</div>
+                      </div>
+                      <!-- amount -->
+                      <div class="form-floating mb-3">
+                        <input name="amount" formControlName="amount" type="number" class="form-control"  placeholder="Amount">
+                        <label for="floatingInput">Amount</label>
+                        <div class="text-danger ms-3" *ngIf="this.fundTransferForm.get('amount')?.errors && this.fundTransferForm.get('amount')?.touched">Invalid Amount</div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <div class="text-center text-success">
+                    {{transferSuccess}}
+                  </div>
+                  <div class="text-center text-danger">
+                    {{transferError}}
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                    <button class="btn btn-outline-warning border border-2 border-warning " (click)="reset()">Reset</button>
+                    <button type="submit" class="btn btn-outline-primary border border-2 border-primary ms-3" (click)="fundtransfer()">Transfer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!-- remove account  -->
+            <app-delete-account [deleteAcno]="acno" (onCancel)="cancelDeleteAccount()" (onDelete)="deleteFromParent()"></app-delete-account>
+
+            <!-- loading page  -->
+            <div *ngIf="logoutStatus" class="loading" style="width: 100%; height: 450px;">
+              <h1 class="text-center text-light">Please wait...You are logging Out...</h1><span class="spinner-border text-light ms-5" role="status">
+                <span class="sr-only">Loading...</span>
+              </span>
+            </div>
+
+            <!-- delete loading page  -->
+            <div *ngIf="deleteSuccessStatus" class="loading" style="width: 100%; height: 450px;">
+              <h1 class="text-center text-light">{{deleteSuccessStatus}}</h1><span class="spinner-border text-light ms-5" role="status">
+                <span class="sr-only">Loading...</span>
+              </span>
+            </div>
+
+            <!-- main  -->
+            <div *ngIf="!logoutStatus && !deleteConfirmStatus" class="container ">
+                <div class="row">
+                    <div class="col-4 pt-5">
+                        <!-- image  -->
+                        <img width="100%" src="https://i.pinimg.com/564x/b9/c6/2b/b9c62b76602925ded4127ff0df2892c9.jpg" alt="">
+                    </div>
+                    
+                    <div class="col-8 text-light">
+                        <!-- content  -->
+                        <!-- heading  -->
+                        <h1 class="text-center mb-3">Welcome {{user}}</h1> <hr>
+                        <!-- paragraph -->
+                        <p>Banking implies an activity where a licensed financial institution safeguards your money. You can park your hard-earned money in Current and Savings Accounts. You can also earn attractive interest income by investing in interest generating term deposits.</p>
+                        <!-- button  -->
+                        <div class="collapse" id="collapseExample">
+                            <p>
+                                Banks also offer a wide variety of loans and overdraft facilities, depending on the type of account you open. Banks cater to a wide variety of customers – from retail investors to small and large business corporations. As a bank customer, you can visit your bank branch or enjoy remote banking services online through mobile or net banking.
+                            </p>
+                        </div>
+                        <button (click)="collapse()" data-bs-toggle="collapse" data-bs-target="#collapseExample" class="btn btn-outline-light">Read 
+                            <span *ngIf="isCollapse">More...</span>
+                            <span *ngIf="!isCollapse">Less</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+    <!-- footer  -->
+
+    <footer class="text-center text-white mt-5" style="background-color: rgba(74,115,117,255);">
+        <!-- Grid container -->
+        <div class="container pt-4">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Twitter -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            <!-- Google -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-google"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Linkedin -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <!-- Github -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-light m-1"
+              href="#!"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center text-light p-3" style="background-color: rgba(52,76,76,255);">
+          © 2020 Copyright:
+          <a class="text-light"  href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+
+
+</body>

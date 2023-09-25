@@ -1,0 +1,52 @@
+/* navbar */
+.logo{
+    width: 8%;
+    padding-left: 2%;
+}
+.heading{
+    width: 92%;
+}
+.heading h3{
+    font-size: 40px;
+    color: rgba(133,220,216,255);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-top: 1%;
+}
+hr{
+    color: rgba(133,220,216,255);
+}
+body{
+    background-image: linear-gradient(to bottom,rgba(23,35,35,255),rgba(46,97,93,255));
+}
+
+
+/* main  */
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left{
+    margin-top: -30px;
+    /* margin-left: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.border-div{
+    border: 2px solid;
+    border-color: rgba(133,220,216,255);
+}
+.btn-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

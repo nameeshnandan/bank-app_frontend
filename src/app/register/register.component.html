@@ -1,0 +1,162 @@
+<body>
+    
+
+        <!-- navbar -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 navbar">
+                    <div class="logo">
+                        <img width="80px" src="https://pngimg.com/uploads/bank/bank_PNG24.png" alt="">
+                    </div>
+                    <div class="heading">
+                        <h3 >Deutsche Bank</h3>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    
+        <!-- register loading -->
+        <div *ngIf="regSuccessLoading" class="container text-center m-5 p-5" style="height: 400px;">
+            <h3 class="text-light">Your data is getting registered... Please wait</h3>
+        </div>
+
+
+  <!-- main  -->
+
+<div *ngIf="!regSuccessLoading" class="container ">
+    <div class="row mt-3 ">
+        <div class="col-6 right">
+            <img src="https://cdni.iconscout.com/illustration/premium/thumb/task-registration-2081679-1756042.png" alt="">
+        </div>
+
+
+        <div class="col-6 left">
+            <div class="col-6 p-5 mt-5 border-div rounded-2" style=" background-color: rgb(221, 227, 227); margin-left: 50px;">
+                
+                <h4 class="text-center " style="font-weight: bold;">My Bank</h4>
+                <form  [formGroup]="registerForm" (ngSubmit)="register()" action="">
+
+                    <div class="form-floating mb-3">
+                        <input name="username" formControlName="username" type="text" class="form-control" id="floatingInput" placeholder="User Name">
+                        <label for="floatingInput">User Name</label>
+                        <div class="text-danger ms-3" *ngIf="this.registerForm.get('username')?.errors && this.registerForm.get('username')?.touched" style="height: 20px;">Invalid name</div>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input name="acno" formControlName="acno" type="text" class="form-control" id="floatingInput" placeholder="Phone Number">
+                        <label for="floatingInput">Phone number</label>
+                        <div class="text-danger ms-3" *ngIf="this.registerForm.get('acno')?.errors && this.registerForm.get('acno')?.touched">Invalid name</div>
+
+                    </div>
+
+                    
+                    <div class="form-floating mb-3">
+                      <input name="acno" formControlName="acno" type="text" class="form-control" id="floatingInput" placeholder="Email">
+                      <label for="floatingInput">Email</label>
+                      <div class="text-danger ms-3" *ngIf="this.registerForm.get('acno')?.errors && this.registerForm.get('acno')?.touched">Invalid name</div>
+
+                  </div>
+
+
+                    <div class="form-floating mb-3">
+                        <input name="password" formControlName="password" type="password" class="form-control" id="floatingInput" placeholder="Password">
+                        <label for="floatingInput">Password</label>
+                        <div class="text-danger ms-3" *ngIf="this.registerForm.get('password')?.errors && this.registerForm.get('password')?.touched">Invalid name</div>
+
+                    </div>
+
+      <!-- Register Error Message -->
+          <div>
+             <h4 class="text-danger text-center">{{regErrorMsg}}</h4>
+          </div>
+
+                    <div class="btn-div">
+                        <button type="submit" class="btn text-light btn-primary border border-2 border-primary mt-2">Register</button>
+                    </div>
+
+
+
+                    <div class="link text-center mt-4">Already have an Account <br><a routerLink="">Login</a></div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+         <!-- footer  -->
+
+    <footer class="text-center text-white mt-5" style="background-color: rgba(74,115,117,255);">
+      <!-- Grid container -->
+      <div class="container pt-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Google -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+    
+          <!-- Linkedin -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <!-- Github -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-light m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center text-light p-3" style="background-color: rgba(52,76,76,255);">
+        © 2020 Copyright:
+        <a class="text-light"  href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+</body>

@@ -1,0 +1,12 @@
+body{
+    background-color: rgba(0, 0, 255, 0.075);
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+
